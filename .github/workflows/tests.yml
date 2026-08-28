@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: pip install -e ".[dev]"
+
+      - name: Generate demo dataset
+        run: python examples/demo/generate_demo_data.py
+
+      - name: Run tests
+        run: pytest --cov=omicsfusion --cov-report=term-missing
+
+      - name: Smoke test the demo pipeline end-to-end
+        run: |
+          omicsfusion validate --config examples/demo/config.yaml
+          omicsfusion run --config examples/demo/config.yaml
+          test -f examples/demo/results/report.html

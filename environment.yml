@@ -1,0 +1,36 @@
+name: omicsfusion
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  - pandas>=2.1
+  - numpy>=1.26
+  - scipy>=1.11
+  - scikit-learn>=1.3
+  - scikit-bio>=0.5.9
+  - statsmodels>=0.14
+  - matplotlib>=3.8
+  - seaborn>=0.13
+  - plotly>=5.18
+  - networkx>=3.2
+  - pyarrow>=14.0
+  - openpyxl>=3.1
+  - r-base>=4.3
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-limma
+  - bioconductor-complexheatmap
+  - bioconductor-fgsea
+  - bioconductor-mofa2
+  - r-mixomics
+  - r-vegan
+  - r-ggplot2
+  - pip:
+      - pydantic>=2.5
+      - click>=8.1
+      - rich>=13.7
+      - jinja2>=3.1
+      - streamlit>=1.30
+      - umap-learn>=0.5

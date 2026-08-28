@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use OmicsFusion in your research, please cite it as below."
+title: "OmicsFusion: a modular platform for multi-omics data analysis and integration"
+version: 0.1.0
+date-released: 2026-08-28
+authors:
+  - name: "OmicsFusion Contributors"
+license: MIT
+repository-code: "https://github.com/OmicsFusion/OmicsFusion"
+keywords:
+  - bioinformatics
+  - multi-omics
+  - transcriptomics
+  - proteomics
+  - metabolomics
+  - microbiome
+  - reproducibility

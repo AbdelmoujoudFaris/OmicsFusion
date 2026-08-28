@@ -1,0 +1,536 @@
+{
+  "$defs": {
+    "AnalysisConfig": {
+      "properties": {
+        "qc": {
+          "default": true,
+          "title": "Qc",
+          "type": "boolean"
+        },
+        "normalization": {
+          "$ref": "#/$defs/NormalizationConfig"
+        },
+        "differential": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DifferentialConfig"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "integration": {
+          "$ref": "#/$defs/IntegrationConfig"
+        },
+        "machine_learning": {
+          "$ref": "#/$defs/MachineLearningConfig"
+        },
+        "pathways": {
+          "$ref": "#/$defs/PathwayConfig"
+        }
+      },
+      "title": "AnalysisConfig",
+      "type": "object"
+    },
+    "DifferentialConfig": {
+      "properties": {
+        "condition": {
+          "title": "Condition",
+          "type": "string"
+        },
+        "reference": {
+          "title": "Reference",
+          "type": "string"
+        },
+        "group": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Method"
+        },
+        "alpha": {
+          "default": 0.05,
+          "title": "Alpha",
+          "type": "number"
+        },
+        "correction": {
+          "default": "fdr_bh",
+          "enum": [
+            "fdr_bh",
+            "bonferroni"
+          ],
+          "title": "Correction",
+          "type": "string"
+        }
+      },
+      "required": [
+        "condition",
+        "reference"
+      ],
+      "title": "DifferentialConfig",
+      "type": "object"
+    },
+    "InputsConfig": {
+      "properties": {
+        "transcriptomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transcriptomics"
+        },
+        "proteomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proteomics"
+        },
+        "metabolomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metabolomics"
+        },
+        "metagenomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Metagenomics"
+        },
+        "microbiome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Microbiome"
+        },
+        "epigenomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Epigenomics"
+        },
+        "lipidomics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lipidomics"
+        },
+        "clinical": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clinical"
+        },
+        "metadata": {
+          "title": "Metadata",
+          "type": "string"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "InputsConfig",
+      "type": "object"
+    },
+    "IntegrationConfig": {
+      "properties": {
+        "methods": {
+          "items": {
+            "enum": [
+              "early_concat",
+              "mofa",
+              "diablo",
+              "correlation",
+              "pca_consensus"
+            ],
+            "type": "string"
+          },
+          "title": "Methods",
+          "type": "array"
+        },
+        "n_factors": {
+          "default": 10,
+          "title": "N Factors",
+          "type": "integer"
+        }
+      },
+      "title": "IntegrationConfig",
+      "type": "object"
+    },
+    "MachineLearningConfig": {
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Target"
+        },
+        "task": {
+          "default": "classification",
+          "enum": [
+            "classification",
+            "regression"
+          ],
+          "title": "Task",
+          "type": "string"
+        },
+        "models": {
+          "items": {
+            "enum": [
+              "random_forest",
+              "elastic_net",
+              "logistic_regression",
+              "svm",
+              "xgboost"
+            ],
+            "type": "string"
+          },
+          "title": "Models",
+          "type": "array"
+        },
+        "cv_folds": {
+          "default": 5,
+          "title": "Cv Folds",
+          "type": "integer"
+        },
+        "test_size": {
+          "default": 0.25,
+          "title": "Test Size",
+          "type": "number"
+        },
+        "random_state": {
+          "default": 42,
+          "title": "Random State",
+          "type": "integer"
+        }
+      },
+      "title": "MachineLearningConfig",
+      "type": "object"
+    },
+    "NormalizationConfig": {
+      "properties": {
+        "transcriptomics": {
+          "default": "log2",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Transcriptomics",
+          "type": "string"
+        },
+        "proteomics": {
+          "default": "log2",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Proteomics",
+          "type": "string"
+        },
+        "metabolomics": {
+          "default": "zscore",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Metabolomics",
+          "type": "string"
+        },
+        "metagenomics": {
+          "default": "clr",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Metagenomics",
+          "type": "string"
+        },
+        "microbiome": {
+          "default": "clr",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Microbiome",
+          "type": "string"
+        },
+        "epigenomics": {
+          "default": "zscore",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Epigenomics",
+          "type": "string"
+        },
+        "lipidomics": {
+          "default": "log2",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Lipidomics",
+          "type": "string"
+        },
+        "clinical": {
+          "default": "none",
+          "enum": [
+            "zscore",
+            "log",
+            "log2",
+            "log10",
+            "minmax",
+            "quantile",
+            "median",
+            "vst",
+            "clr",
+            "tmm",
+            "none"
+          ],
+          "title": "Clinical",
+          "type": "string"
+        }
+      },
+      "title": "NormalizationConfig",
+      "type": "object"
+    },
+    "PathwayConfig": {
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "organism": {
+          "default": "human",
+          "title": "Organism",
+          "type": "string"
+        },
+        "gene_sets": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Gene Sets",
+          "type": "array"
+        },
+        "method": {
+          "default": "ora",
+          "enum": [
+            "ora",
+            "gsea"
+          ],
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "title": "PathwayConfig",
+      "type": "object"
+    },
+    "ProjectMeta": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "organism": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Organism"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ProjectMeta",
+      "type": "object"
+    }
+  },
+  "description": "Root schema for ``project.yaml``.",
+  "properties": {
+    "project": {
+      "$ref": "#/$defs/ProjectMeta"
+    },
+    "inputs": {
+      "$ref": "#/$defs/InputsConfig"
+    },
+    "analysis": {
+      "$ref": "#/$defs/AnalysisConfig"
+    },
+    "outdir": {
+      "default": "results",
+      "title": "Outdir",
+      "type": "string"
+    },
+    "random_seed": {
+      "default": 42,
+      "title": "Random Seed",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project",
+    "inputs"
+  ],
+  "title": "ProjectConfig",
+  "type": "object"
+}

@@ -1,0 +1,46 @@
+project:
+  name: demo_multiomics
+  organism: human
+  description: Synthetic case/control multi-omics demo dataset shipped with OmicsFusion.
+
+inputs:
+  transcriptomics: examples/demo/transcriptomics.csv
+  proteomics: examples/demo/proteomics.csv
+  metabolomics: examples/demo/metabolomics.csv
+  metadata: examples/demo/metadata.csv
+
+analysis:
+  qc: true
+
+  normalization:
+    transcriptomics: vst
+    proteomics: log2
+    metabolomics: zscore
+
+  differential:
+    condition: condition
+    reference: control
+    group: treated
+    correction: fdr_bh
+    alpha: 0.05
+
+  integration:
+    methods:
+      - early_concat
+      - pca_consensus
+
+  machine_learning:
+    enabled: true
+    target: condition
+    task: classification
+    models:
+      - random_forest
+      - elastic_net
+    cv_folds: 5
+    test_size: 0.25
+
+  pathways:
+    enabled: false
+
+outdir: examples/demo/results
+random_seed: 42

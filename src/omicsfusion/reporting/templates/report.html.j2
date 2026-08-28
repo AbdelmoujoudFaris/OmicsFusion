@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ project_name }} — OmicsFusion Report</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+         margin: 0; background: #f7f8fa; color: #1a1a1a; }
+  header { background: #14213d; color: white; padding: 2rem 3rem; }
+  header h1 { margin: 0 0 .25rem 0; font-size: 1.75rem; }
+  header p { margin: 0; opacity: .8; }
+  nav { background: white; border-bottom: 1px solid #e2e2e2; padding: .75rem 3rem;
+        position: sticky; top: 0; display: flex; gap: 1.25rem; flex-wrap: wrap; z-index: 10; }
+  nav a { color: #14213d; text-decoration: none; font-size: .9rem; font-weight: 600; }
+  nav a:hover { text-decoration: underline; }
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 3rem 4rem; }
+  section { background: white; border-radius: 10px; padding: 1.5rem 2rem; margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  section h2 { margin-top: 0; border-bottom: 2px solid #fca311; display: inline-block; padding-bottom: .25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: .75rem; }
+  th, td { border: 1px solid #e2e2e2; padding: .4rem .6rem; text-align: left; }
+  th { background: #f0f1f4; }
+  .badge { display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .75rem;
+           font-weight: 700; }
+  .badge.ok { background: #e6f4ea; color: #1e7e34; }
+  .badge.warn { background: #fff3cd; color: #856404; }
+  .badge.error { background: #fde2e1; color: #a12622; }
+  .muted { color: #666; font-size: .85rem; }
+  .figure { margin: 1rem 0; }
+  ul.plain { padding-left: 1.1rem; }
+  code { background: #f0f1f4; padding: .1rem .35rem; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>{{ project_name }}</h1>
+  <p>OmicsFusion multi-omics analysis report — generated {{ generated_at }}</p>
+</header>
+<nav>
+  {% for section in sections %}
+  <a href="#{{ section.anchor }}">{{ section.title }}</a>
+  {% endfor %}
+</nav>
+<main>
+  {% for section in sections %}
+  <section id="{{ section.anchor }}">
+    <h2>{{ section.title }}</h2>
+    {{ section.html | safe }}
+  </section>
+  {% endfor %}
+</main>
+</body>
+</html>
