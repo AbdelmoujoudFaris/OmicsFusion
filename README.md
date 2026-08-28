@@ -17,7 +17,7 @@ Visualization → Reproducible HTML Report
 ```
 <p align="left">
   <a href="img/OMF.png" target="_blank">
-    <img src="img/OMF.png" alt="docking-ai logo" width="400">
+    <img src="img/OMF.png" alt="docking-ai logo" width="800">
   </a>
 </p>
 
