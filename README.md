@@ -15,6 +15,11 @@ Raw Data → Detection → Metadata Validation → QC → Normalization →
 Per-Omics Analysis → Cross-Omics Integration → ML → Pathways →
 Visualization → Reproducible HTML Report
 ```
+<p align="left">
+  <a href="img/OMG.png" target="_blank">
+    <img src="img/OMG.png" alt="docking-ai logo" width="400">
+  </a>
+</p>
 
 ## Architecture
 
